@@ -7,8 +7,7 @@ list_match= ['', 'Indonesia vs Argentina', 'Indonesia vs Thailand', 'Indonesia v
 list_price = ['', '150000', '250000', '350000', '500000']
 list_stadion = ['','Jakarta International Stadium', 'Jatidiri', 'Maguwoharjo'
                 
-conn = st.connection("postgresql", type="sql", 
-                     url="postgresql://radityacr740:o8KrhDcWj4wN@ep-super-smoke-81752083.us-east-2.aws.neon.tech/fpmbddb")
+conn = st.connection("postgresql", type="sql", url="postgresql://radityacr740:o8KrhDcWj4wN@ep-super-smoke-81752083.us-east-2.aws.neon.tech/fpmbddb")
 with conn.session as session:
     query = text('CREATE TABLE IF NOT EXISTS TICKETS (id serial, tribune_name varchar, supporter_name varchar, gender char(25), \
                                                        stadion varchar, ticket_price varchar, match_name varchar, date_info date);')
