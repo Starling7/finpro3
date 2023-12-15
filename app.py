@@ -4,7 +4,6 @@ from sqlalchemy import text
 list_tribune = ['', 'Economy', 'Regular', 'VIP', 'VVIP']
 list_gender = ['', 'male', 'female']
 list_match= ['', 'Indonesia vs Argentina', 'Indonesia vs Thailand', 'Indonesia vs Malaysia']
-list_stadium = ['', 'Jakarta International Stadium', 'Jatidiri Stadium', 'Maguwoharjo Stadium']
 list_price = ['', '150000', '250000', '350000', '500000']
 
 conn = st.connection("postgresql", type="sql", 
@@ -45,7 +44,6 @@ if page == "Edit Data":
                 tribune_name_baru = st.selectbox("tribune_name", list_tribune, list_tribune.index(tribune_name_lama))
                 supporter_name_baru = st.text_input("supporter_name", supporter_name_lama)
                 gender_baru = st.selectbox("gender", list_gender, list_gender.index(gender_lama))
-                stadium_name_baru = st.selectbox("stadium_name", list_stadium, list_stadium.index(stadium_name_lama))
                 ticket_price_baru = st.selectbox("ticket_price", list_price, list_price.index(ticket_price_lama))
                 match_name_baru = st.selectbox("match_name", list_match, list_match.index(match_name_lama))
                 date_info_baru = st.date_input("date_info", date_info_lama)
