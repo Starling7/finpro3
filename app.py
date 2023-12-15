@@ -2,7 +2,6 @@ import streamlit as st
 from sqlalchemy import text
 
 list_tribune = ['', 'Economy', 'Regular', 'VIP', 'VVIP']
-list_gender = ['', 'male', 'female']
 list_stadion = ['','Jakarta International Stadium', 'Jatidiri', 'Maguwoharjo']
 list_price = ['', '150000', '250000', '350000', '500000']
 list_match= ['', 'Indonesia vs Argentina', 'Indonesia vs Thailand', 'Indonesia vs Malaysia']
@@ -43,7 +42,6 @@ if page == "Edit Data":
             with st.form(f'data-{id}'):
                 tribune_name_baru = st.selectbox("tribune_name", list_tribune, list_tribune.index(tribune_name_lama))
                 supporter_name_baru = st.text_input("supporter_name", supporter_name_lama)
-                gender_baru = st.selectbox("gender", list_gender, list_gender.index(gender_lama))
                 stadion_baru = st.selectbox("stadion", list_stadion, list_stadion.index(stadion_lama))
                 match_name_baru = st.selectbox("match_name", list_match, list_match.index(match_name_lama)) 
                 ticket_price_baru = st.selectbox("ticket_price", list_price, list_price.index(ticket_price_lama))
