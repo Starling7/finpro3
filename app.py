@@ -44,8 +44,7 @@ if page == "Edit Data":
                 match_name_baru = st.selectbox("match_name", list_match, list_match.index(match_name_lama)) 
                 ticket_price_baru = st.selectbox("ticket_price", list_price, list_price.index(ticket_price_lama))
                 date_info_baru = st.date_input("date_info", date_info_lama)
-
-                
+  
                 col1, col2 = st.columns([1, 6])
 
                 with col1:
