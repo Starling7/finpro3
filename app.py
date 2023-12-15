@@ -34,7 +34,6 @@ if page == "Edit Data":
         tribune_name_lama = result["tribune_name"]
         supporter_name_lama = result["supporter_name"]
         gender_lama = result["gender"]
-        stadium_name_lama = result["stadium_name"]
         ticket_price_lama = result["ticket_price"]
         match_name_lama = result["match_name"]
         date_info_lama = result["date_info"]
