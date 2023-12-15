@@ -2,7 +2,7 @@ import streamlit as st
 from sqlalchemy import text
 
 list_tribune = ['', 'Economy', 'Regular', 'VIP', 'VVIP']
-list_stadion = ['','Jakarta International Stadium', 'Jatidiri', 'Maguwoharjo']
+list_gender = ['', 'Male', 'Female']
 list_price = ['', '150000', '250000', '350000', '500000']
 list_match= ['', 'Indonesia vs Argentina', 'Indonesia vs Thailand', 'Indonesia vs Malaysia']
 
@@ -26,21 +26,22 @@ if page == "Edit Data":
                           VALUES (:1, :2, :3, :4, :5, :6, :7);')
             session.execute(query, {'1':'', '2':'', '3':'', '4':'[]', '5':'', '6':'', '7':None})
             session.commit()
+            
     data = conn.query('SELECT * FROM tickets ORDER By id;', ttl="0")
     for _, result in data.iterrows():        
         id = result['id']
         tribune_name_lama = result["tribune_name"]
         supporter_name_lama = result["supporter_name"]
         gender_lama = result["gender"]
-        stadion_lama = result["stadion"]
         ticket_price_lama = result["ticket_price"]
         match_name_lama = result["match_name"]
         date_info_lama = result["date_info"]
+        
         with st.expander(f'a.n. {supporter_name_lama}'):
             with st.form(f'data-{id}'):
                 tribune_name_baru = st.selectbox("tribune_name", list_tribune, list_tribune.index(tribune_name_lama))
+                gender_baru = st.selectbox("gender", gender_lama)
                 supporter_name_baru = st.text_input("supporter_name", supporter_name_lama)
-                stadion_baru = st.selectbox("stadion", list_stadion, list_stadion.index(stadion_lama))
                 match_name_baru = st.selectbox("match_name", list_match, list_match.index(match_name_lama)) 
                 ticket_price_baru = st.selectbox("ticket_price", list_price, list_price.index(ticket_price_lama))
                 date_info_baru = st.date_input("date_info", date_info_lama)
