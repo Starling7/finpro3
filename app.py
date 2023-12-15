@@ -26,7 +26,6 @@ if page == "Edit Data":
                           VALUES (:1, :2, :3, :4, :5, :6, :7);')
             session.execute(query, {'1':'', '2':'', '3':'', '4':'[]', '5':'', '6':'', '7':None})
             session.commit()
-
     data = conn.query('SELECT * FROM tickets ORDER By id;', ttl="0")
     for _, result in data.iterrows():        
         id = result['id']
@@ -37,7 +36,6 @@ if page == "Edit Data":
         ticket_price_lama = result["ticket_price"]
         match_name_lama = result["match_name"]
         date_info_lama = result["date_info"]
-
         with st.expander(f'a.n. {supporter_name_lama}'):
             with st.form(f'data-{id}'):
                 tribune_name_baru = st.selectbox("tribune_name", list_tribune, list_tribune.index(tribune_name_lama))
@@ -46,6 +44,7 @@ if page == "Edit Data":
                 match_name_baru = st.selectbox("match_name", list_match, list_match.index(match_name_lama)) 
                 ticket_price_baru = st.selectbox("ticket_price", list_price, list_price.index(ticket_price_lama))
                 date_info_baru = st.date_input("date_info", date_info_lama)
+
                 
                 col1, col2 = st.columns([1, 6])
 
