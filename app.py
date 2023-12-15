@@ -16,7 +16,7 @@ with conn.session as session:
     session.execute(query)
 
 st.header('FOOTBALL TICKETS DATABASES')
-page = st.sidebar.selectbox("Pilih Menu", ["View Data","Edit Data", "Grafik"])
+page = st.sidebar.selectbox("Pilih Menu", ["View Data","Edit Data","Grafik"])
 
 if page == "View Data":
     data = conn.query('SELECT * FROM tickets ORDER By id;', ttl="0").set_index('id')
