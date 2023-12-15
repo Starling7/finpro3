@@ -75,7 +75,7 @@ if page == "Edit Data":
 if page == "Grafik":
     st.subheader("Gender Ratio")
     data = conn.query('SELECT gender, COUNT(*) as count FROM tickets GROUP BY gender;', ttl="0")
-    st.pie_chart(data.set_index('gender'))
+    st.bar_chart(data.set_index('gender'))
     '\n'
     st.subheader("Ticket Selling")
     data = conn.query('SELECT ticket_price, COUNT(*) as count FROM tickets GROUP BY ticket_price;', ttl="0")
