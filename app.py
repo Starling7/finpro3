@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 from sqlalchemy import text
 
 list_tribune = ['', 'Economy', 'Regular', 'VIP', 'VVIP']
@@ -11,12 +10,12 @@ list_price = ['', '150000', '250000', '350000', '500000']
 conn = st.connection("postgresql", type="sql", 
                      url="postgresql://radityacr740:o8KrhDcWj4wN@ep-super-smoke-81752083.us-east-2.aws.neon.tech/fpmbddb")
 with conn.session as session:
-    query = text('CREATE TABLE IF NOT EXISTS TICKETS (id serial, tribune_name text, supporter_name text, gender char(25), \
-                                                       stadium_name text, ticket_price text, match_name text, date_info date);')
+    query = text('CREATE TABLE IF NOT EXISTS TICKETS (id serial, tribune_name varchar, supporter_name varchar, gender char(25), \
+                                                       stadium_name varchar, ticket_price varchar, match_name varchar, date_info date);')
     session.execute(query)
 
 st.header('FOOTBALL TICKETS DATABASES')
-page = st.sidebar.selectbox("Pilih Menu", ["View Data","Edit Data","Grafik"])
+page = st.sidebar.selectbox("Pilih Menu", ["View Data","Edit Data"])
 
 if page == "View Data":
     data = conn.query('SELECT * FROM tickets ORDER By id;', ttl="0").set_index('id')
@@ -27,7 +26,7 @@ if page == "Edit Data":
         with conn.session as session:
             query = text('INSERT INTO tickets (tribune_name, supporter_name, gender, stadium_name, ticket_price, match_name, date_info) \
                           VALUES (:1, :2, :3, :4, :5, :6, :7);')
-            session.execute(query, {'1':'', '2':'', '3':'', '4':'', '5':'', '6':'[]', '7':None})
+            session.execute(query, {'1':'', '2':'', '3':'', '4':'[]', '5':'', '6':'', '7':None})
             session.commit()
 
     data = conn.query('SELECT * FROM tickets ORDER By id;', ttl="0")
@@ -43,7 +42,7 @@ if page == "Edit Data":
 
         with st.expander(f'a.n. {supporter_name_lama}'):
             with st.form(f'data-{id}'):
-               tribune_name_baru = st.selectbox("tribune_name", list_tribune, list_tribune.index(tribune_name_lama))
+                tribune_name_baru = st.selectbox("tribune_name", list_tribune, list_tribune.index(tribune_name_lama))
                 supporter_name_baru = st.text_input("supporter_name", supporter_name_lama)
                 gender_baru = st.selectbox("gender", list_gender, list_gender.index(gender_lama))
                 stadium_name_baru = st.selectbox("stadium_name", list_stadium, list_stadium.index(stadium_name_lama))
@@ -71,16 +70,3 @@ if page == "Edit Data":
                         session.execute(query, {'1':id})
                         session.commit()
                         st.experimental_rerun()
-
-if page == "Grafik":
-    st.subheader("Gender Ratio")
-    data = conn.query('SELECT gender, COUNT(*) as count FROM tickets GROUP BY gender;', ttl="0")
-    st.bar_chart(data.set_index('gender'))
-    '\n'
-    st.subheader("Ticket Selling")
-    data = conn.query('SELECT ticket_price, COUNT(*) as count FROM tickets GROUP BY ticket_price;', ttl="0")
-    st.bar_chart(data.set_index('ticket_price'))
-    '\n'
-    st.subheader("Tribune Distribution")
-    data = conn.query('SELECT tribune_name, COUNT(*) as count FROM tickets GROUP BY tribune_name;', ttl="0")
-    st.bar_chart(data.set_index('tribune_name'))
